@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { POKEMON_LIST } from './pokemon-list.fake';
 import { Pokemon } from './pokemon.model';
