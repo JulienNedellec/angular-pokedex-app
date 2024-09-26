@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "app-pokemon-dex-angular",
+    "Pokedexoss": "app-pokemon-dex-angular"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
