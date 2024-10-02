@@ -1,8 +1,16 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { Routes, provideRouter } from '@angular/router'; // 👈
+import { PokemonListComponent } from './pokemon/pokemon-list/pokemon-list.component'; // 👈
 
-import { routes } from './app.routes';
+// 👇
+const routes: Routes = [
+  { path: 'pokemons', component: PokemonListComponent },
+  { path: '', redirectTo: '/pokemons', pathMatch: 'full' },
+];
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes), // 👈
+  ],
 };
