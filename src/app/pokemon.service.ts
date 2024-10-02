@@ -1,27 +1,42 @@
-import { Injectable } from '@angular/core';
-import { PokemonList } from './pokemon.model';
+import { inject, Injectable } from '@angular/core';
+import { Pokemon, PokemonList } from './pokemon.model';
 import { POKEMON_LIST } from './pokemon-list.fake';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  // Retourne la liste de tous les Pokémons.
+  private readonly http = inject(HttpClient);
+  private readonly POKEMON_API_URL = 'http://localhost:3000/pokemons';
 
-  getPokemonList(): PokemonList {
-    return POKEMON_LIST;
+  // Retourne la liste de tous les Pokémons.
+  getPokemonList(): Observable<PokemonList> {
+    return this.http.get<PokemonList>(this.POKEMON_API_URL);
   }
 
   // Retourne un Pokémon en fonction de son identifiant.
+  getPokemonById(id: number): Observable<Pokemon> {
+    return this.http.get<Pokemon>(`${this.POKEMON_API_URL}/${id}`);
+  }
 
-  getPokemonById(id: number) {
-    const pokemon = POKEMON_LIST.find((pokemon) => pokemon.id === id);
+  // Ajoute un pokémon.
+  addPokemon(pokemon: Omit<Pokemon, 'id'>): Observable<Pokemon> {
+    return this.http.post<Pokemon>(this.POKEMON_API_URL, pokemon);
+  }
 
-    if (!pokemon) {
-      throw new Error("Pokémon non trouvé avec l'identifiant " + id);
-    }
+  // Met à jour un pokémon existant.
+  updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
+    return this.http.put<Pokemon>(
+      `${this.POKEMON_API_URL}/${pokemon.id}`,
+      pokemon
+    );
+  }
 
-    return pokemon;
+  // Supprime un pokémon.
+  deletePokemon(pokemonId: number): Observable<void> {
+    return this.http.delete<void>(`${this.POKEMON_API_URL}/${pokemonId}`);
   }
 
   // Retourne la liste des types valides pour un Pokémon.
