@@ -17,7 +17,7 @@ export class PokemonService {
   getPokemonById(id: number) {
     const pokemon = POKEMON_LIST.find((pokemon) => pokemon.id === id);
 
-    if (pokemon) {
+    if (!pokemon) {
       throw new Error("Pokémon non trouvé avec l'identifiant " + id);
     }
 

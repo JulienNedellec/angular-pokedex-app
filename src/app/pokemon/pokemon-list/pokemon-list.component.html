@@ -11,7 +11,7 @@
               type="text"
               name="searchTerm"
               class="form-control"
-              placeholder="Rechercher un pokémon"
+              placeholder="Rechercher un Pokémon"
               #searchField
               [value]="searchTerm()"
               (input)="searchTerm.set(searchField.value)"
@@ -24,7 +24,6 @@
 </div>
 
 <!-- Liste des Pokémons -->
-
 <div class="container">
   <div class="row">
     @for(pokemon of pokemonListFiltered(); track pokemon.id) {
@@ -66,6 +65,14 @@
                   -
                 </button>
               </div>
+              <p class="card-text">
+                <a
+                  class="text small text-muted"
+                  [routerLink]="['/pokemons', pokemon.id]"
+                >
+                  VOIR
+                </a>
+              </p>
             </div>
           </div>
         </div>
