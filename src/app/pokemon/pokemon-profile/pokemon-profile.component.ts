@@ -17,8 +17,11 @@ export class PokemonProfileComponent {
   readonly route = inject(ActivatedRoute);
   readonly pokemonService = inject(PokemonService);
   readonly pokemonId = Number(this.route.snapshot.paramMap.get('id'));
-  readonly pokemonSignal = toSignal(
-    this.pokemonService.getPokemonById(this.pokemonId)
+  readonly pokemonListResponse = toSignal(
+    this.pokemonService.getPokemonList().pipe(
+      map((value) => ({ value, error: undefined })),
+      catchError((error) => of({ value: undefined, error }))
+    )
   );
 
   deletePokemon(pokemonId: number | undefined) {

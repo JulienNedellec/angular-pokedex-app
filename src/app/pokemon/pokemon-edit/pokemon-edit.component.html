@@ -22,6 +22,7 @@
                   <td>
                     <input
                       type="text"
+                      formControlName="name"
                       class="form-control"
                       [class.is-invalid]="pokemonName.invalid"
                       placeholder="Nom du Pokémon"
@@ -121,9 +122,20 @@
                       class="btn btn-secondary btn-sm rounded-pill m-1"
                       (click)="pokemonTypeList.removeAt(index)"
                       [style.backgroundColor]="getPokemonColor(type.value)"
+                      [style.color]="
+                        type.value === 'Electrik' ? 'black' : 'white'
+                      "
                     >
-                      {{ type.value }} <span class="badge">x</span></button
-                    >} @if(pokemonTypeList.hasError('required')) {
+                      {{ type.value }}
+                      <span
+                        class="badge"
+                        [style.color]="
+                          type.value === 'Electrik' ? 'black' : 'white'
+                        "
+                        >x</span
+                      >
+                    </button>
+                    } @if(pokemonTypeList.hasError('required')) {
                     <p class="text-danger">
                       Veuillez sélectionner au moins un type pour un Pokémon.
                     </p>
@@ -135,8 +147,8 @@
                     </p>
                     }
                     <div class="row mt-3">
-                      @for(type of pokemonService.getPokemonTypes(); track type)
-                      {
+                      @for(type of pokemonService.getPokemonTypeList(); track
+                      type) {
                       <div class="col-md-4">
                         <div class="form-check">
                           <input

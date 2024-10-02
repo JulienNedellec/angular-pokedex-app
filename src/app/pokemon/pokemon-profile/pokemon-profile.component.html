@@ -4,15 +4,15 @@
       <div
         class="col-md-4 d-flex align-items-center justify-content-center bg-light"
       >
-        @if(pokemon(); as pokemon) {
+        @if (pokemon(); as pokemon) {
         <img
           [src]="pokemon.picture"
           class="img-fluid rounded-start"
           [alt]="pokemon.name"
         />
         } @if(loading()) {
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border text-success" role="status">
+        <div class="text-center w-100">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
@@ -76,15 +76,10 @@
             <button
               class="btn btn-link text-decoration-none text-warning"
               [routerLink]="['/pokemons/edit', pokemon()?.id]"
-              [@if]="pokemon()?.id"
             >
               ÉDITER
             </button>
-            <button
-              class="btn btn-link text-decoration-none text-warning"
-              (click)="deletePokemon(pokemon()?.id)"
-              [@if]="pokemon()?.id"
-            >
+            <button class="btn btn-link text-decoration-none text-warning">
               SUPPRIMER
             </button>
           </div>

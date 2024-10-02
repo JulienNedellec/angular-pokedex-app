@@ -21,17 +21,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class PokemonEditComponent {
   constructor() {
+    // Lorsque le Pokémon est chargé, on remplit les champs du formulaire
     const pokemon = this.pokemon();
-
     if (pokemon) {
       this.form.patchValue({
         name: pokemon.name,
         life: pokemon.life,
         damage: pokemon.damage,
-      });
-
-      pokemon.types.forEach((type) => {
-        this.pokemonTypeList.push(new FormControl(type));
+        types: [],
       });
     }
   }
@@ -53,9 +50,17 @@ export class PokemonEditComponent {
       Validators.maxLength(POKEMON_RULES.MAX_NAME),
       Validators.pattern(POKEMON_RULES.NAME_PATTERN),
     ]),
-    life: new FormControl(),
-    damage: new FormControl(),
-    types: new FormArray([], [Validators.required, Validators.maxLength(3)]),
+    life: new FormControl(0, [
+      Validators.required,
+      Validators.min(POKEMON_RULES.MIN_LIFE),
+      Validators.max(POKEMON_RULES.MAX_LIFE),
+    ]),
+    damage: new FormControl(0, [
+      Validators.required,
+      Validators.min(POKEMON_RULES.MIN_DAMAGE),
+      Validators.max(POKEMON_RULES.MAX_DAMAGE),
+    ]),
+    types: new FormArray([]),
   });
 
   // Get the selected Pokemon list by user.
